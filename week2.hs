@@ -27,9 +27,7 @@ which determines how many of its three arguments are equal (i.e. it returns eith
 howManyEqual :: Int -> Int -> Int -> Int
 howManyEqual x y z
     | x == y && y == z = 3
-    | x == z = 2
-    | y == z = 2
-    | x == y = 2
+    | x == z || x == y || y == z = 2
     | otherwise = 0
 
 
@@ -39,11 +37,32 @@ which takes the side-lengths of three squares as its arguments, and returns the 
 the lengths of the squares’ diagonals.
 -}
 
-
-
+sumDiagonallengths :: Float -> Float -> Float -> Float
+sumDiagonalLengths x y z = total
+                           where
+                             total = (x + y + z)
 
 {-A taxi company calculates fares based on distance travelled. Fares start at £2.20; 50p
 is added for each kilometre covered for the first 10 kilometres; and 30p is added for
 each additional kilometre. Write a function:
 taxiFare :: Int -> Float
 which takes the distance in kilometres, and returns the fare in pounds-}
+
+taxiFare :: Int -> Float
+taxiFare km
+    | km <= 10 = 2.20 + (fromIntegral km) * 0.50
+    | km > 10 = 2.20 + (10.00 * 0.50) + (((fromIntegral km) - 10.00) * 0.30)
+    | otherwise = 0
+
+{-Write a function:
+howManyAboveAverage :: Int -> Int -> Int -> Int
+which returns how many of its three integer arguments are greater than their average
+value. (Hint: First consider what the possible results could be.)-}
+
+howManyAboveAverage :: Int -> Int -> Int -> Int
+howManyAboveAverage a b c
+    | a > average a b c && b > average a b c = 2
+    | b > average a b c && c > average a b c = 2
+    | a > average a b c || b > average a b c || c > average a b c = 1
+    where
+      average  a b c = div(a + b + c)3
